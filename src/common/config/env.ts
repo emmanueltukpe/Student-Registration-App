@@ -1,6 +1,6 @@
 import dotenv  from "dotenv";
 
-dotenv.config;
+dotenv.config();
 
 
 /**
@@ -31,7 +31,9 @@ const env = {
      * DON'T SET THIS MANUALLY
      */
     node_env: process.env.NODE_ENV || "development",
-    port: Number(process.env.PORT),
+    port: Number(process.env.PORT) || 8000,
+    mongodb_url: process.env.MONGO_URL || "mongodb://localhost:27017",
+    service_name: process.env.SERVICE_NAME || 'the prediction game',
     
 }
 
