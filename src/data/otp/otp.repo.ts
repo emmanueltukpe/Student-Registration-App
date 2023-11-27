@@ -12,8 +12,8 @@ export class OtpRepository extends BaseRepository<IOtp> {
         return this.create(otp);
     }
 
-    public async findOtp(email: string, code: string): Promise<IOtp> {
-        return this.byQuery({ email: email, code: code });
+    public async findOtp(code: string): Promise<IOtp> {
+        return this.byQuery({ code: code });
     }
 
     public async verifyOtp(email: string, code: string): Promise<IOtp> {
@@ -21,7 +21,7 @@ export class OtpRepository extends BaseRepository<IOtp> {
     }
 
     public async deleteVerfiedOtp(email: string, code: string) {
-        this.destroy({ email: email, code: code, is_verified: true });
+        return this.destroy({ email: email, code: code, is_verified: true });
     }
 
     private generateOtpCode(): string {

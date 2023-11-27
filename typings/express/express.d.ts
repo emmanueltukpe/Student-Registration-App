@@ -5,6 +5,7 @@ declare global {
     export interface Request {
       merchant: any;
       user: any;
+      imagePath?: string;
       id: string;
     }
 

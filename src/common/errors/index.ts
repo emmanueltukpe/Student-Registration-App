@@ -1,4 +1,4 @@
-import { StatusCodes } from "http-status-codes";
+import { BAD_REQUEST, NOT_FOUND, UNAUTHORIZED } from "http-status-codes";
 
 export class ControllerError extends Error {
     code: number;
@@ -17,7 +17,7 @@ export class ControllerError extends Error {
 export class ActionNotAllowedError extends ControllerError {
     constructor(message: string) {
         super(message);
-        this.code = StatusCodes.BAD_REQUEST;
+        this.code = BAD_REQUEST;
     }
 }
 
@@ -27,7 +27,7 @@ export class ActionNotAllowedError extends ControllerError {
  */
 export class NotFoundError extends ControllerError {
     constructor(message: string) {
-        super(message, StatusCodes.NOT_FOUND);
+        super(message, NOT_FOUND);
     }
 }
 
@@ -36,7 +36,7 @@ export class InvalidSecretKeyError extends ControllerError {
         const errorMessage = `the secret key provided doesn't exist`;
         super(errorMessage);
 
-        this.code = StatusCodes.UNAUTHORIZED;
+        this.code = UNAUTHORIZED;
         this.error_code = 702;
     }
 }
@@ -46,7 +46,7 @@ export class MissingAuthHeaderError extends ControllerError {
         const errorMessage = `authorization header not found`;
         super(errorMessage);
 
-        this.code = StatusCodes.UNAUTHORIZED;
+        this.code = UNAUTHORIZED;
         this.error_code = 703;
     }
 }
@@ -56,7 +56,7 @@ export class InvalidAuthSchemeError extends ControllerError {
         const errorMessage = `invalid authentication scheme`;
         super(errorMessage);
 
-        this.code = StatusCodes.UNAUTHORIZED;
+        this.code = UNAUTHORIZED;
         this.error_code = 704;
     }
 }
@@ -66,7 +66,7 @@ export class UserEmailExistsError extends ControllerError {
         const errorMessage = "This email already exists";
         super(errorMessage);
 
-        this.code = StatusCodes.BAD_REQUEST;
+        this.code = BAD_REQUEST;
         this.error_code = 301;
     }
 }
@@ -76,7 +76,7 @@ export class UserNotExistsError extends ControllerError {
         const errorMessage = "User does not exist";
         super(errorMessage);
 
-        this.code = StatusCodes.BAD_REQUEST;
+        this.code = BAD_REQUEST;
         this.error_code = 302;
     }
 }
@@ -86,37 +86,27 @@ export class InvalidOtpError extends ControllerError {
         const errorMessage = "Invalid OTP";
         super(errorMessage);
 
-        this.code = StatusCodes.BAD_REQUEST;
+        this.code = BAD_REQUEST;
         this.error_code = 303;
     }
 }
-
-// export class AccountNotExistsError extends ControllerError {
-//   constructor() {
-//     const errorMessage = 'Account does not exist';
-//     super(errorMessage);
-
-//     this.code = StatusCodes.BAD_REQUEST;
-//     this.error_code = 302;
-//   }
-// }
-
-// export class AccountExistsError extends ControllerError {
-//   constructor() {
-//     const errorMessage = 'User Already has an account';
-//     super(errorMessage);
-
-//     this.code = StatusCodes.BAD_REQUEST;
-//     this.error_code = 301;
-//   }
-// }
 
 export class WrongPasswordError extends ControllerError {
     constructor() {
         const errorMessage = "You have entered an incorrect password";
         super(errorMessage);
 
-        this.code = StatusCodes.BAD_REQUEST;
+        this.code = BAD_REQUEST;
         this.error_code = 304;
+    }
+}
+export class SuspendedError extends ControllerError {
+    constructor() {
+        const errorMessage =
+            "You cannot login to your account, you have been suspended, kindly follow due protocol for your teacher to remove your suspension";
+        super(errorMessage);
+
+        this.code = UNAUTHORIZED;
+        this.error_code = 305;
     }
 }

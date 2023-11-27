@@ -2,9 +2,10 @@ import express, { Application } from "express";
 import responseTime from "response-time";
 import cors from "cors";
 import helmet from "helmet";
-import loggerMiddleware from "./middleware/requestLogger";
-import jsend from "./middleware/jsend";
-import { logResponseBody } from "./middleware/logResponseBody";
+import loggerMiddleware from "./middlewares/requestLogger";
+import jsend from "./middlewares/jsend";
+import { logResponseBody } from "./middlewares/logResponseBody";
+import { StudentService } from "../data/student/student.service";
 export default class App {
     private server: Application;
 
@@ -36,9 +37,19 @@ export default class App {
     /**
      * Registers utility handlers
      */
-    private registerHandlers() {
+    private async registerHandlers() {
         this.server.get("/", (req, res) => {
             res.status(200).json({ Welcome: "Stduents of Godolkin" });
+        });
+
+        this.server.post("/m", async (req, res) => {
+            try {
+                const subjectRepo = StudentService.initialize();
+                const created = await subjectRepo.login(req.body);
+                res.json({ created: created });
+            } catch (error) {
+                console.log(error);
+            }
         });
 
         this.server.use((req, res, next) => {

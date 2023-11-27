@@ -45,6 +45,10 @@ export const trimmedString = {
     trim: true
 };
 
+export const array = {
+    type: SchemaTypes.Array,
+}
+
 /**
  * Defines a schema type with a trimmed required string
  */

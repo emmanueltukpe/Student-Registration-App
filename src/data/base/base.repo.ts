@@ -1,5 +1,6 @@
 import mongoose, { Model, Schema, FilterQuery, ClientSession } from "mongoose";
 import { Repository, Query, QueryResult, PaginationQuery } from ".";
+import { UserNotExistsError } from "../../common/errors";
 
 export class BaseRepository<T> implements Repository<T> {
     protected model: Model<T>;
@@ -45,6 +46,7 @@ export class BaseRepository<T> implements Repository<T> {
         return this.model
             .findOne(query)
             .select(opts?.projections)
+            .populate(opts?.populations)
             .exec();
     }
 
@@ -60,6 +62,7 @@ export class BaseRepository<T> implements Repository<T> {
         return this.model
             .findOne({ ...query, deleted_at: undefined })
             .select(opts?.projections)
+            .populate(opts?.populations)
             .exec();
     }
 
@@ -123,6 +126,7 @@ export class BaseRepository<T> implements Repository<T> {
      */
     update(condition: string | object, update: any): Promise<T> {
         const query = this.getQuery(condition);
+        if (!query) throw new UserNotExistsError();
         return this.model.findOneAndUpdate(query, update, { new: true }).exec();
     }
 
@@ -155,6 +159,7 @@ export class BaseRepository<T> implements Repository<T> {
      */
     destroy(condition: string | object): Promise<T> {
         const query = this.getQuery(condition);
+        if (!query) throw new UserNotExistsError();
         return this.model.findOneAndDelete(query).exec();
     }
 }

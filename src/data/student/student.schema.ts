@@ -5,12 +5,14 @@ import {
     trimmedRequiredLowercaseString,
     trimmedString,
     date,
-    requiredBoolean
+    requiredBoolean,
+    array
 } from "../base";
+import SubjectSchema from "../subject/subject.schema";
 import { IStudent } from "./student.model";
 
 const StudentSchema = SchemaFactory<IStudent>({
-    full_name: { ...trimmedRequiredString },
+    full_name: { ...trimmedString },
     email: { ...trimmedRequiredLowercaseString },
     password: { ...trimmedRequiredString },
     address: { ...trimmedString },
@@ -22,12 +24,7 @@ const StudentSchema = SchemaFactory<IStudent>({
     date_of_birth: { ...date },
     grade: { ...trimmedString },
     is_suspended: { ...requiredBoolean, default: false },
-    subjects: [
-        {
-            ...trimmedString,
-            ref: "Subject"
-        }
-    ]
+    subjects: [SubjectSchema]
 });
 
 export default StudentSchema;

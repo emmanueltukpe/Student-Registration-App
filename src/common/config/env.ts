@@ -39,8 +39,14 @@ const env = {
      * Possible values are "development", "test", "production", "staging"
      */
     app_env: process.env.APP_ENV || "development",
+    
     jwt_secret: process.env.JWT_SECRET || "secret",
-    expiresIn: process.env.EXPIRES_IN || "1d"
+    jwt_admin_secret: process.env.JWT_ADMIN_SECRET,
+    expiresIn: process.env.EXPIRES_IN || "1d",
+
+    email: process.env.EMAIL_ADDRESS,
+    email_service: process.env.EMAIL_SERVICE,
+    email_app_password: process.env.EMAIL_AUTH_PASSWORD
 };
 
 const missingVariables = requiredVariables.reduce(
