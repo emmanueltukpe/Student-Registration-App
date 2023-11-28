@@ -11,7 +11,7 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "typeRoots": ["./node_modules/@types"],
-    "types": ["jest", "node"],
+    "types": ["node"],
     "esModuleInterop": true
   },
   "exclude": ["src/**/*.spec.ts"],

@@ -11,7 +11,7 @@ export class DB {
      * Connects to a MongoDB server and subsequently opens a MongoDB connection
      */
     async connect() {
-        await mongoose.connect(env.mongodb_url, {
+        mongoose.connect(env.mongodb_url, {
             useUnifiedTopology: true,
             useFindAndModify: false,
             useNewUrlParser: true,

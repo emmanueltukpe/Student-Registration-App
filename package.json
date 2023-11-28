@@ -29,10 +29,9 @@
         "jsonwebtoken": "^9.0.2",
         "mailgen": "^2.0.28",
         "module-alias": "^2.1.0",
-        "mongoose": "^5.13.7",
+        "mongoose": "5.13.7",
         "multer": "^1.4.5-lts.1",
         "nanoid": "^3.1.25",
-        "nock": "^12.0.3",
         "nodemailer": "^6.9.7",
         "prom-client": "^12.0.0",
         "response-time": "^2.3.2",
@@ -41,27 +40,26 @@
     },
     "devDependencies": {
         "@types/bcrypt": "^5.0.2",
+        "@types/bson": "4.0.5",
         "@types/bunyan": "^1.8.5",
         "@types/cheerio": "^0.22.31",
-        "@types/cors": "^2.8.12",
         "@types/date-fns": "^2.6.0",
         "@types/dotenv": "^6.1.0",
         "@types/express": "^4.16.0",
         "@types/express-request-id": "^1.4.3",
-        "@types/faker": "^4.1.5",
         "@types/helmet": "^0.0.43",
-        "@types/jest": "^26.0.23",
         "@types/jsonwebtoken": "^9.0.5",
-        "@types/morgan": "^1.7.35",
+        "@types/mongodb": "3.3.1",
         "@types/multer": "^1.4.11",
+        "@types/node": "20.10.0",
         "@types/nodemailer": "^6.4.14",
         "@types/response-time": "^2.3.5",
-        "@types/supertest": "^2.0.7",
-        "faker": "^4.1.0",
-        "jest": "^26.6.3",
         "nodemon": "^1.18.9",
-        "supertest": "^3.4.2",
-        "ts-jest": "^26.5.6",
         "ts-node": "^9.0.0"
+    },
+    "overrides": {
+        "@types/mongodb": {
+            "@types/bson": "4.0.5"
+        }
     }
 }

@@ -1,19 +1,18 @@
 import fs from "fs";
 import multer, { FileFilterCallback } from "multer";
 import { Request, Response, NextFunction } from "express";
-import { ActionNotAllowedError } from "../../common/errors";
 
 export class ImageUpload {
     private storage = multer.diskStorage({
         destination: (req, file, cb) => {
-            const uploadPath = "./uploads";
+            const uploadPath = "./uploads"; 
             if (!fs.existsSync(uploadPath)) {
-                fs.mkdirSync(uploadPath);
+                fs.mkdirSync(uploadPath); 
             }
             cb(null, uploadPath);
         },
         filename: (req, file, cb) => {
-            cb(null, Date.now() + "-" + file.originalname);
+            cb(null, Date.now() + "-" + file.originalname); 
         }
     });
 
@@ -30,11 +29,7 @@ export class ImageUpload {
         if (mimeType && extName) {
             cb(null, true);
         } else {
-            cb(
-                new ActionNotAllowedError(
-                    "Only images (jpeg, jpg, png) are allowed!"
-                )
-            );
+            cb(new Error("Only images (jpeg, jpg, png) are allowed!"));
         }
     };
 
@@ -52,20 +47,21 @@ export class ImageUpload {
         this.upload(req, res, (err: any) => {
             if (err instanceof multer.MulterError) {
                 if (err.code === "LIMIT_FILE_SIZE") {
-                    throw new ActionNotAllowedError("Files cannot be larger than 10MB");
+                    return res.status(400).json({
+                        message:
+                            "File size too large. Max size allowed is 10MB."
+                    });
                 } else {
                     return res.status(400).json({ message: err.message });
                 }
             } else if (err) {
-                throw new ActionNotAllowedError(
-                    "Error uploading file: " + err
-                );
+                return res
+                    .status(400)
+                    .json({ message: "Error uploading file", error: err });
             }
 
             if (!req.file) {
-                throw new ActionNotAllowedError(
-                    "No file to upload"
-                );
+                return res.status(400).json({ message: "No file uploaded" });
             }
 
             const imagePath = req.file.path;
