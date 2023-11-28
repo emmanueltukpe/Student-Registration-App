@@ -43,6 +43,8 @@ export class BaseRepository<T> implements Repository<T> {
         opts?: { projections?: any; populations?: any }
     ): Promise<T> {
         const query = this.getQuery(id);
+        console.log(query);
+        
         return this.model
             .findOne(query)
             .select(opts?.projections)
@@ -126,7 +128,9 @@ export class BaseRepository<T> implements Repository<T> {
      */
     update(condition: string | object, update: any): Promise<T> {
         const query = this.getQuery(condition);
-        if (!query) throw new UserNotExistsError();
+        
+        const user = this.byQuery(query);
+        if (!user) throw new UserNotExistsError();
         return this.model.findOneAndUpdate(query, update, { new: true }).exec();
     }
 
@@ -159,7 +163,20 @@ export class BaseRepository<T> implements Repository<T> {
      */
     destroy(condition: string | object): Promise<T> {
         const query = this.getQuery(condition);
-        if (!query) throw new UserNotExistsError();
+        const user = this.byQuery(query);
+        if (!user) throw new UserNotExistsError();
+        
         return this.model.findOneAndDelete(query).exec();
+    }
+
+    /**
+     * Permanently deletes documents by removing it from the collection
+     * @param condition
+     */
+    destroyMany(
+        condition: string | object
+    ): Promise<{ ok?: number; n?: number } & { deletedCount?: number }> {
+        const query = this.getQuery(condition);
+        return this.model.deleteMany(query).exec();
     }
 }

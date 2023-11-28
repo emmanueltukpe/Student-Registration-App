@@ -7,7 +7,7 @@ import {
 } from "../../common/errors";
 import PasswordHash from "../../handlers/hash.password.handler";
 import { jwtHandler } from "../../handlers/jwt.handler";
-import { AdminDTO, AdminLoginDTO, AdminUpdateDTO, IAdmin } from "./admin.model";
+import { AdminDTO, AdminLoginDTO, AdminUpdateDTO } from "./admin.model";
 import { AdminRepository } from "./admin.repo";
 
 export class AdminService {
@@ -21,10 +21,15 @@ export class AdminService {
 
         if (emailExists) throw new UserEmailExistsError();
         if (
-            admin.admin_secret !== env.adminSecret ||
+            admin.admin_secret !== env.adminSecret &&
             admin.admin_secret !== env.superAdminSecret
-        )
+        ) {
+            console.log(admin.admin_secret);
+            console.log(env.adminSecret);
+            console.log(env.superAdminSecret);
+
             throw new InvalidAdminCode();
+        }
         const hashedPassword = await this.passwordHash.hashPassword(
             admin.password
         );
@@ -70,12 +75,14 @@ export class AdminService {
     }
 
     public async deleteAdmin(id: string) {
-        const admin = await this.adminrepository.destroy(id);
+        await this.getAdmin(id);
+        const admin = await this.adminrepository.destroy({ _id: id });
         return admin;
     }
 
     public async getAdmin(id: string) {
         const admin = await this.adminrepository.byID(id);
+        if (!admin) throw new UserNotExistsError();
         return admin;
     }
 
@@ -85,6 +92,7 @@ export class AdminService {
     }
 
     public async updateAdmin(id: string, admin: AdminUpdateDTO) {
+        await this.getAdmin(id);
         const updatedAdmin = await this.adminrepository.update(id, admin);
         return updatedAdmin;
     }

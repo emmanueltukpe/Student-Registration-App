@@ -9,7 +9,7 @@ type MiddlewareFunction = (
 
 export const isAdmin: MiddlewareFunction = (req, res, next) => {
     const user = req.user;
-    if (user && (user.role === "admin" || user.role === "super_admin")) {
+    if (user.role && (user.role === "admin" || user.role === "super_admin")) {
         next();
     } else {
         throw new ForbiddenError();
@@ -18,7 +18,7 @@ export const isAdmin: MiddlewareFunction = (req, res, next) => {
 
 export const isSuperAdmin: MiddlewareFunction = (req, res, next) => {
     const user = req.user;
-    if (user && user.role === "super_admin") {
+    if (user.role && user.role === "super_admin") {
         next();
     } else {
         throw new ForbiddenError();

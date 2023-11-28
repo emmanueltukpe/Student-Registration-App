@@ -40,8 +40,7 @@ const env = {
      */
     app_env: process.env.APP_ENV || "development",
     
-    jwt_secret: process.env.JWT_SECRET || "secret",
-    jwt_admin_secret: process.env.JWT_ADMIN_SECRET,
+    jwt_secret: process.env.JWT_SECRET,
     expiresIn: process.env.EXPIRES_IN || "1d",
     
     adminSecret: process.env.ADMIN_SECRET,

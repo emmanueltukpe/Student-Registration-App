@@ -1,7 +1,7 @@
 export interface IOtp {
     _id?: string;
     email: string;
-    password: string;
+    password?: string;
     code?: string;
     is_verified?: boolean;
 }

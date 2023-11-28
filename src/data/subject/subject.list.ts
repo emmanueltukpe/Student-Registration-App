@@ -64,6 +64,6 @@ export const subjectList: Array<ISubject> = [
     {
         subject_name: "Civic Education",
         subject_code: "LIT",
-        class: "social_science"
+        class: "compulsory"
     }
 ];

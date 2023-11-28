@@ -1,11 +1,11 @@
-import express, { Application } from "express";
+import express, { Application, Router } from "express";
 import responseTime from "response-time";
 import cors from "cors";
 import helmet from "helmet";
 import loggerMiddleware from "./middlewares/requestLogger";
 import jsend from "./middlewares/jsend";
 import { logResponseBody } from "./middlewares/logResponseBody";
-import { StudentService } from "../data/student/student.service";
+import v1Router from "../routes";
 export default class App {
     private server: Application;
 
@@ -38,18 +38,14 @@ export default class App {
      * Registers utility handlers
      */
     private async registerHandlers() {
+
+        const router = Router();
+        router.use("/v1", v1Router);
+
+        this.server.use("/api", router);
+
         this.server.get("/", (req, res) => {
             res.status(200).json({ Welcome: "Stduents of Godolkin" });
-        });
-
-        this.server.post("/m", async (req, res) => {
-            try {
-                const subjectRepo = StudentService.initialize();
-                const created = await subjectRepo.login(req.body);
-                res.json({ created: created });
-            } catch (error) {
-                console.log(error);
-            }
         });
 
         this.server.use((req, res, next) => {

@@ -78,7 +78,7 @@ export class StudentService {
         const student = await this.studentrepository.createStudent(
             studentDetails
         );
-        await this.otpRepository.deleteVerfiedOtp(verify.email, verify.code);
+        await this.otpRepository.deleteVerfiedOtp(student.email);
         const payload = { id: student._id };
         const token = jwtHandler.generateToken(payload, {
             expiresIn: env.expiresIn
@@ -126,7 +126,7 @@ export class StudentService {
             email: email
         });
         if (!getStudent) throw new UserNotExistsError();
-        const otp = await this.otpRepository.createOtp(getStudent);
+        const otp = await this.otpRepository.createOtp({ email: email });
         const emailDetails: EmailOptions = {
             to: email,
             from: env.email,
@@ -146,10 +146,13 @@ export class StudentService {
         const hashedPassword = await this.hashPassword.hashPassword(
             verify.password
         );
-        await this.studentrepository.update(otp.email, {
-            password: hashedPassword
-        });
-        await this.otpRepository.deleteVerfiedOtp(otp.email, verify.code);
+        await this.studentrepository.update(
+            { email: otp.email },
+            {
+                password: hashedPassword
+            }
+        );
+        await this.otpRepository.deleteVerfiedOtp(otp.email);
         return {
             message:
                 "Password updated successfully, kindly login with your new password"
@@ -233,6 +236,7 @@ export class StudentService {
     }
 
     public async expelStudent(id: string) {
+        await this.getStudent(id)
         const student = await this.studentrepository.destroy({ _id: id });
         return student;
     }

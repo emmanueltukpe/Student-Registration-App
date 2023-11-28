@@ -2,15 +2,15 @@ import { Request, Response } from "express";
 import { StudentService } from "../../data/student/student.service";
 import { BaseController } from "./base.controller";
 
-export class StudentController extends BaseController {
+export class StudentController {
     public async register(req: Request, res: Response) {
         try {
             const subjectRepo = StudentService.initialize();
             const data = await subjectRepo.studentSignUp(req.body);
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 
@@ -19,9 +19,9 @@ export class StudentController extends BaseController {
             const subjectRepo = StudentService.initialize();
             const data = await subjectRepo.login(req.body);
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 
@@ -30,9 +30,9 @@ export class StudentController extends BaseController {
             const subjectRepo = StudentService.initialize();
             const data = await subjectRepo.verifyOtp(req.body);
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 
@@ -48,20 +48,21 @@ export class StudentController extends BaseController {
                 image
             );
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 
     public async forgotPassword(req: Request, res: Response) {
         try {
             const subjectRepo = StudentService.initialize();
-            const data = await subjectRepo.forgotPassword(req.body);
+            const { email } = req.body;
+            const data = await subjectRepo.forgotPassword(email);
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 
@@ -70,9 +71,9 @@ export class StudentController extends BaseController {
             const subjectRepo = StudentService.initialize();
             const data = await subjectRepo.resetPassword(req.body);
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 
@@ -82,9 +83,9 @@ export class StudentController extends BaseController {
             const subjectRepo = StudentService.initialize();
             const data = await subjectRepo.changePassword(req.body, studentId);
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 
@@ -99,9 +100,9 @@ export class StudentController extends BaseController {
                 image
             );
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 
@@ -110,9 +111,9 @@ export class StudentController extends BaseController {
             const subjectRepo = StudentService.initialize();
             const data = await subjectRepo.getStudent(req.params.id);
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
     public async getAllScienceStudents(req: Request, res: Response) {
@@ -120,9 +121,42 @@ export class StudentController extends BaseController {
             const subjectRepo = StudentService.initialize();
             const data = await subjectRepo.getAllScienceStudents();
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
+        }
+    }
+
+    public async suspendStudent(req: Request, res: Response) {
+        try {
+            const subjectRepo = StudentService.initialize();
+            const data = await subjectRepo.suspendStudent(req.params.id);
+
+            BaseController.handleSuccess(req, res, data);
+        } catch (err) {
+            BaseController.handleError(req, res, err);
+        }
+    }
+
+    public async removeSuspension(req: Request, res: Response) {
+        try {
+            const subjectRepo = StudentService.initialize();
+            const data = await subjectRepo.removeSuspension(req.params.id);
+
+            BaseController.handleSuccess(req, res, data);
+        } catch (err) {
+            BaseController.handleError(req, res, err);
+        }
+    }
+
+    public async expelStudent(req: Request, res: Response) {
+        try {
+            const subjectRepo = StudentService.initialize();
+            const data = await subjectRepo.expelStudent(req.params.id);
+
+            BaseController.handleSuccess(req, res, data);
+        } catch (err) {
+            BaseController.handleError(req, res, err);
         }
     }
 
@@ -131,21 +165,21 @@ export class StudentController extends BaseController {
             const subjectRepo = StudentService.initialize();
             const data = await subjectRepo.getAllSocialScienceStudents();
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 
-    public async subjectRegistration(req: Request, res: Response) { 
+    public async subjectRegistration(req: Request, res: Response) {
         try {
-            const studentId = req.user.id
+            const studentId = req.user.id;
             const subjectRepo = StudentService.initialize();
             const data = await subjectRepo.subjectRegistration(studentId);
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 }

@@ -11,7 +11,7 @@ const start = async () => {
         await db.connect();
         const appServer = app.getServer();
         const httpServer = http.createServer(appServer);
-        console.log("📦  MongoDB Connected!");
+        logger.message("📦  MongoDB Connected!");
 
         httpServer.listen(env.port);
         httpServer.on("listening", () =>

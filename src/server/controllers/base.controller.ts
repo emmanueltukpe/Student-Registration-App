@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import HttpStatus from "http-status-codes";
 import { ControllerError } from "../../common/errors";
 import logger from "../../common/logger";
+import { MetricsService } from "../services";
 
 export class BaseController {
     /**
@@ -10,17 +11,20 @@ export class BaseController {
      * @param res Express response
      * @param data Success data
      */
-    handleSuccess = (
+
+    public static handleSuccess(
         req: Request,
         res: Response,
         data: any,
         code: number = HttpStatus.OK
-    ) => {
+    ) {
+        // Implementation of handleSuccess
         if (res.headersSent) return;
 
         res.jSend.success(data, code);
         logger.logAPIResponse(req, res);
-    };
+        MetricsService.record(req, res);
+    }
 
     /**
      * Handles operation error, sends a HTTP response and logs the error.
@@ -29,12 +33,12 @@ export class BaseController {
      * @param error Error object
      * @param message Optional error message. Useful for hiding internal errors from clients.
      */
-    handleError = (
+    public static handleError(
         req: Request,
         res: Response,
-        err: Error,
+        err: any,
         message?: string
-    ) => {
+    ) {
         /**
          * Useful when we call an asynchrous function that might throw
          * after we've sent a response to client
@@ -56,5 +60,6 @@ export class BaseController {
             data?.error_code || error_code
         );
         logger.logAPIError(req, res, err);
-    };
+        MetricsService.record(req, res);
+    }
 }

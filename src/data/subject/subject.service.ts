@@ -1,10 +1,13 @@
+import { SubjectNotExistsError } from "../../common/errors";
 import { SubjectRepository } from "./subject.repo";
 
 export class SubjectService {
     constructor(private readonly subjectRepository: SubjectRepository) {}
 
     public async getSubject(id: string) {
-        return this.subjectRepository.getSubject(id);
+        const subject = await this.subjectRepository.getSubject(id);
+        if (!subject) throw new SubjectNotExistsError();
+        return subject;
     }
 
     public async findAllSubjects() {

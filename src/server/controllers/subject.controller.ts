@@ -2,15 +2,15 @@ import { Request, Response } from "express-serve-static-core";
 import { BaseController } from "./base.controller";
 import { SubjectService } from "../../data/subject/subject.service";
 
-export class SubjectController extends BaseController {
+export class SubjectController {
     public async getSubject(req: Request, res: Response) {
         try {
             const subjectRepo = SubjectService.initialize();
             const data = await subjectRepo.getSubject(req.params.id);
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 
@@ -19,9 +19,9 @@ export class SubjectController extends BaseController {
             const subjectRepo = SubjectService.initialize();
             const data = await subjectRepo.findAllSubjects();
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 
@@ -30,9 +30,9 @@ export class SubjectController extends BaseController {
             const subjectRepo = SubjectService.initialize();
             const data = await subjectRepo.getAllScienceClassSubjects();
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 
@@ -41,9 +41,9 @@ export class SubjectController extends BaseController {
             const subjectRepo = SubjectService.initialize();
             const data = await subjectRepo.getAllSocialScienceClassSubjects();
 
-            this.handleSuccess(req, res, data);
+            BaseController.handleSuccess(req, res, data);
         } catch (err) {
-            this.handleError(req, res, err);
+            BaseController.handleError(req, res, err);
         }
     }
 }

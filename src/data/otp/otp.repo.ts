@@ -20,8 +20,8 @@ export class OtpRepository extends BaseRepository<IOtp> {
         return this.update({ email: email, code: code }, { is_verified: true });
     }
 
-    public async deleteVerfiedOtp(email: string, code: string) {
-        return this.destroy({ email: email, code: code, is_verified: true });
+    public async deleteVerfiedOtp(email: string) {
+        return await this.destroyMany({ email: email });
     }
 
     private generateOtpCode(): string {

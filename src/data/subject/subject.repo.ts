@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import { BaseRepository } from "../base";
 import { subjectList } from "./subject.list";
 import { ISubject } from "./subject.model";
@@ -13,7 +14,9 @@ export class SubjectRepository extends BaseRepository<ISubject> {
     }
 
     public async getSubject(id: string): Promise<ISubject> {
-        return this.byID(id);
+        const object_id = Types.ObjectId(id);
+        
+        return await this.model.findOne(object_id);
     }
 
     public async findAllSubjects(): Promise<ISubject[]> {

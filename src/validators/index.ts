@@ -45,7 +45,6 @@ export const changepassword = joi.object({
 export const updatestudent = joi.object({
     full_name: requiredString,
     age: requiredNumber,
-    class: joi.string().valid("pure_science", "social_science").required(),
     address: requiredString,
     next_of_kin: requiredString
 });

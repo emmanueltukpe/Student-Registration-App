@@ -81,6 +81,16 @@ export class UserNotExistsError extends ControllerError {
     }
 }
 
+export class SubjectNotExistsError extends ControllerError {
+    constructor() {
+        const errorMessage = "Subject does not exist";
+        super(errorMessage);
+
+        this.code = BAD_REQUEST;
+        this.error_code = 401;
+    }
+}
+
 export class InvalidOtpError extends ControllerError {
     constructor() {
         const errorMessage = "Invalid OTP";
