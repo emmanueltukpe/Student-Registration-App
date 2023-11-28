@@ -1,8 +1,8 @@
-import App from "./app";
+import App from "./server/app";
 import http from "http";
-import db from "./db";
-import logger from "../common/logger";
-import env from "../common/config/env";
+import db from "./server/db";
+import logger from "./common/logger";
+import env from "./common/config/env";
 
 const start = async () => {
     try {
