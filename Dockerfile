@@ -1,4 +1,4 @@
-FROM node:20-alpine3.17
+FROM node:20-alpine3.17 as Base
 
 
 WORKDIR /app
@@ -6,6 +6,8 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 
 RUN apk add --no-cache make gcc g++ python
+
+RUN yarn global add node-gyp
 
 RUN yarn
 
