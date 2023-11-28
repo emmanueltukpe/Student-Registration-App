@@ -5,8 +5,6 @@ WORKDIR /app
 
 COPY package.json yarn.lock ./
 
-RUN apk add --no-cache make gcc g++ python
-
 RUN yarn global add node-gyp
 
 RUN yarn
