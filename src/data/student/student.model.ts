@@ -1,11 +1,5 @@
 import { ISubject } from "../subject/subject.model";
 
-export enum Class {
-    PURE_SCIENCE = "pure_science",
-    SOCIAL_SCIENCE = "social_science",
-    COMPLUSORY = "compulsory"
-}
-
 export interface IStudent {
     _id?: string;
     full_name?: string;
@@ -14,8 +8,7 @@ export interface IStudent {
     registration_number?: string;
     image?: string;
     age?: number;
-    date_of_birth?: Date;
-    class?: Class;
+    class?: "pure_science" | "social_science";
     subjects?: Array<ISubject>;
     address?: string;
     next_of_kin?: string;
@@ -26,8 +19,7 @@ export interface IStudentRegristration {
     image: string;
     full_name: string;
     age: number;
-    date_of_birth: Date;
-    class: Class;
+    class: "pure_science" | "social_science";
     address: string;
     next_of_kin: string;
 }
@@ -35,7 +27,6 @@ export interface IStudentRegristration {
 export interface IChangePassword {
     old_password: string;
     new_password: string;
-    confirm_password: string;
 }
 
 

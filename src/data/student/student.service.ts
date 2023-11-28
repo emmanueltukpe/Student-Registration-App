@@ -11,10 +11,9 @@ import { StudentRepository } from "./student.repo";
 import PasswordHash from "../../handlers/hash.password.handler";
 import EmailService, {
     EmailOptions
-} from "../../services/email.service.handler";
+} from "../../server/services/email.service.handler";
 import { jwtHandler } from "../../handlers/jwt.handler";
 import {
-    Class,
     IChangePassword,
     IStudent,
     IStudentRegristration,
@@ -196,7 +195,7 @@ export class StudentService {
     public async getAllScienceStudents() {
         const opts: PaginationQuery = {
             query: {
-                class: Class.PURE_SCIENCE,
+                class: "pure_science",
                 is_suspended: false
             },
             per_page: 10
@@ -208,7 +207,7 @@ export class StudentService {
     public async getAllSocialScienceStudents() {
         const opts: PaginationQuery = {
             query: {
-                class: Class.SOCIAL_SCIENCE,
+                class: "social_science",
                 is_suspended: false
             },
             per_page: 10
@@ -244,7 +243,7 @@ export class StudentService {
             await this.subjectRepository.getAllScienceClassSubjects();
         const socialScienceSubjects =
             await this.subjectRepository.getAllSocialScienceClassSubjects();
-        if (student.class === Class.PURE_SCIENCE) {
+        if (student.class === "pure_science") {
             return await this.studentrepository.update(
                 { _id: id },
                 { subjects: scienceSubjects }

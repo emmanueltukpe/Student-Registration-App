@@ -139,8 +139,9 @@ export class StudentController extends BaseController {
 
     public async subjectRegistration(req: Request, res: Response) { 
         try {
+            const studentId = req.user.id
             const subjectRepo = StudentService.initialize();
-            const data = await subjectRepo.subjectRegistration(req.body);
+            const data = await subjectRepo.subjectRegistration(studentId);
 
             this.handleSuccess(req, res, data);
         } catch (err) {

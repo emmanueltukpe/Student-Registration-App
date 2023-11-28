@@ -13,7 +13,7 @@ const requiredVariables = ["port"];
 const productionAndStagingVariables = ["mongo_url"];
 
 /**
- * Requires MongoDB and Redis credentials in production and staging, else uses Redis and MongoDB connection string directly
+ * Requires MongoDB in production and staging, else uses MongoDB connection string directly
  * in dev or any other environment
  */
 if (["production", "staging"].includes(process.env.NODE_ENV as string)) {
@@ -33,7 +33,7 @@ const env = {
     mongodb_url: process.env.MONGO_URL || "mongodb://localhost:27017",
     db_name: process.env.DB_NAME || "student-registration",
 
-    service_name: process.env.SERVICE_NAME || "the prediction game",
+    service_name: process.env.SERVICE_NAME || "Godgonklin Senior Secondary School",
     /**
      * This application's runtime environment
      * Possible values are "development", "test", "production", "staging"
@@ -43,6 +43,9 @@ const env = {
     jwt_secret: process.env.JWT_SECRET || "secret",
     jwt_admin_secret: process.env.JWT_ADMIN_SECRET,
     expiresIn: process.env.EXPIRES_IN || "1d",
+    
+    adminSecret: process.env.ADMIN_SECRET,
+    superAdminSecret: process.env.SUPER_ADMIN_SECRET,
 
     email: process.env.EMAIL_ADDRESS,
     email_service: process.env.EMAIL_SERVICE,

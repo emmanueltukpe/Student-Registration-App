@@ -12,12 +12,6 @@ class JWTHandler {
         return jwt.sign(payload, this.secretKey, options);
     }
 
-    generateTokenAdmin(payload: any, options?: SignOptions): string {
-        return jwt.sign(payload, this.secretKey, options);
-    }
-
-    gene
-
     verifyToken(token: string, options?: VerifyOptions): any {
         return jwt.verify(token, this.secretKey, options);
     }

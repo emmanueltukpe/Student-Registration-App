@@ -1,6 +1,7 @@
 import fs from "fs";
 import multer, { FileFilterCallback } from "multer";
 import { Request, Response, NextFunction } from "express";
+import { ActionNotAllowedError } from "../../common/errors";
 
 export class ImageUpload {
     private storage = multer.diskStorage({
@@ -29,7 +30,11 @@ export class ImageUpload {
         if (mimeType && extName) {
             cb(null, true);
         } else {
-            cb(new Error("Only images (jpeg, jpg, png, gif) are allowed!"));
+            cb(
+                new ActionNotAllowedError(
+                    "Only images (jpeg, jpg, png) are allowed!"
+                )
+            );
         }
     };
 
@@ -47,21 +52,20 @@ export class ImageUpload {
         this.upload(req, res, (err: any) => {
             if (err instanceof multer.MulterError) {
                 if (err.code === "LIMIT_FILE_SIZE") {
-                    return res.status(400).json({
-                        message:
-                            "File size too large. Max size allowed is 10MB."
-                    });
+                    throw new ActionNotAllowedError("Files cannot be larger than 10MB");
                 } else {
                     return res.status(400).json({ message: err.message });
                 }
             } else if (err) {
-                return res
-                    .status(400)
-                    .json({ message: "Error uploading file", error: err });
+                throw new ActionNotAllowedError(
+                    "Error uploading file: " + err
+                );
             }
 
             if (!req.file) {
-                return res.status(400).json({ message: "No file uploaded" });
+                throw new ActionNotAllowedError(
+                    "No file to upload"
+                );
             }
 
             const imagePath = req.file.path;

@@ -1,4 +1,3 @@
-import { UserEmailExistsError } from "../../common/errors";
 import { BaseRepository } from "../base";
 import { CreateStudentDTO, IStudent, IStudentRegristration } from "./student.model";
 import StudentSchema from "./student.schema";
