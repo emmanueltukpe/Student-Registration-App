@@ -4,9 +4,7 @@ import {
     number,
     trimmedRequiredLowercaseString,
     trimmedString,
-    date,
     requiredBoolean,
-    array
 } from "../base";
 import SubjectSchema from "../subject/subject.schema";
 import { IStudent } from "./student.model";
@@ -21,7 +19,6 @@ const StudentSchema = SchemaFactory<IStudent>({
     image: { ...trimmedString },
     age: { ...number },
     class: { ...trimmedString },
-    date_of_birth: { ...date },
     grade: { ...trimmedString },
     is_suspended: { ...requiredBoolean, default: false },
     subjects: [SubjectSchema]

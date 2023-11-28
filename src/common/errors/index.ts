@@ -1,4 +1,4 @@
-import { BAD_REQUEST, NOT_FOUND, UNAUTHORIZED } from "http-status-codes";
+import { BAD_REQUEST, FORBIDDEN, NOT_FOUND, UNAUTHORIZED } from "http-status-codes";
 
 export class ControllerError extends Error {
     code: number;
@@ -100,6 +100,7 @@ export class WrongPasswordError extends ControllerError {
         this.error_code = 304;
     }
 }
+
 export class SuspendedError extends ControllerError {
     constructor() {
         const errorMessage =
@@ -108,5 +109,25 @@ export class SuspendedError extends ControllerError {
 
         this.code = UNAUTHORIZED;
         this.error_code = 305;
+    }
+}
+
+export class InvalidAdminCode extends ControllerError {
+    constructor() {
+        const errorMessage = "You cannot create an admin withouta valid admin code";
+        super(errorMessage);
+
+        this.code = FORBIDDEN;
+        this.error_code = 306;
+    }
+}
+
+export class ForbiddenError extends ControllerError {
+    constructor() {
+        const errorMessage = "You are not allowed to perform this action, only authorized personnels can access this";
+        super(errorMessage);
+
+        this.code = FORBIDDEN;
+        this.error_code = 307;
     }
 }

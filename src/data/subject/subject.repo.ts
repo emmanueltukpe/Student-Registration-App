@@ -1,5 +1,4 @@
 import { BaseRepository } from "../base";
-import { Class } from "../student";
 import { subjectList } from "./subject.list";
 import { ISubject } from "./subject.model";
 import SubjectSchema from "./subject.schema";
@@ -23,13 +22,13 @@ export class SubjectRepository extends BaseRepository<ISubject> {
 
     public async getAllScienceClassSubjects(): Promise<ISubject[]> {
         return this.model.find({
-            $or: [{ class: Class.COMPLUSORY }, { class: Class.PURE_SCIENCE }]
+            $or: [{ class: "compulsory" }, { class: "pure_science" }]
         });
     }
 
     public async getAllSocialScienceClassSubjects(): Promise<ISubject[]> {
         return this.model.find({
-            $or: [{ class: Class.COMPLUSORY }, { class: Class.SOCIAL_SCIENCE }]
+            $or: [{ class: "compulsory" }, { class: "social_science" }]
         });
     }
 }

@@ -1,6 +1,6 @@
 import Mailgen from "mailgen";
 import nodemailer from "nodemailer";
-import env from "../common/config/env";
+import env from "../../common/config/env";
 
 export interface EmailOptions {
     from: string;
@@ -57,12 +57,12 @@ class EmailService {
                             otp: otp
                         }
                     ]
-                },
+                }
             }
         };
 
         const mail = MailGenerator.generate(response);
-        return mail
+        return mail;
     }
 }
 
