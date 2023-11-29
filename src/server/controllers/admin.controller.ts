@@ -61,7 +61,7 @@ export class AdminController {
     public async updateAdmin(req: Request, res: Response) {
         try {
             const adminRepo = AdminService.initialise();
-            req.user.id = req.params.id;
+            req.params.id = req.user.id;
             const data = await adminRepo.updateAdmin(req.params.id, req.body);
 
             BaseController.handleSuccess(req, res, data);

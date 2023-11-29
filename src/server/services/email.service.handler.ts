@@ -34,7 +34,9 @@ class EmailService {
                 html: this.mailGeneratorForOtp(otp)
             });
         } catch (error) {
-            throw new EmailServiceError(error);
+            const err = new EmailServiceError(error);
+            console.log(err);
+            throw err;
         }
     }
 

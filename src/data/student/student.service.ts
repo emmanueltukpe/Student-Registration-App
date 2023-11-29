@@ -55,7 +55,7 @@ export class StudentService {
             subject: "OTP for registration",
             text: "The otp for registration is " + otp.code
         };
-        this.emailService.sendEmail(emailDetails, otp.code);
+        await this.emailService.sendEmail(emailDetails, otp.code);
         return { message: "OTP sent to your email" };
     }
 

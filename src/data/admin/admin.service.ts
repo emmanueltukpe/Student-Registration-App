@@ -7,6 +7,7 @@ import {
 } from "../../common/errors";
 import PasswordHash from "../../handlers/hash.password.handler";
 import { jwtHandler } from "../../handlers/jwt.handler";
+import { PaginationQuery } from "../base";
 import { AdminDTO, AdminLoginDTO, AdminUpdateDTO } from "./admin.model";
 import { AdminRepository } from "./admin.repo";
 
@@ -87,7 +88,11 @@ export class AdminService {
     }
 
     public async getAllAdmins() {
-        const admins = await this.adminrepository.getPaged();
+        const opts: PaginationQuery = {
+            query: {},
+            per_page: 10
+        };
+        const admins = await this.adminrepository.getPaged(opts);
         return admins;
     }
 
