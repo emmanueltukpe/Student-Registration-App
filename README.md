@@ -1,21 +1,9 @@
-# The Predict League 
+# Student Registration App
 
-## About
-The Predict League is a game that allows players to predict the outcomes of a match in their favourite football leagues and be ranked. They are allowed to create their personal leagues with their peers and each match day, they get to make predictions and be ranked based on the accuracy of their predictions.
+The Student Registration App is a web-based application designed for secondary school students to manage student registrations and subjects enrollment depnding on class. This app also allows administative functions.
 
-### Ranking system
 
-5 points - Exact Score prediction
-3 points - Predicting the right team team to win or both teams draw
--1 points - Having a completely wrong prediction
-
-## ER Diagram
-
-![Entity-Relationship Diagram][def]
-
-[def]: ./img/er.diagram.png
-
-# Installation
+## Installation Instructions
 
 1. Install yarn
 
@@ -45,3 +33,14 @@ $ tsc -w -p ./tsconfig.json
 ```sh
 $ yarn start:dev
 ```
+## Tech Stack
+Node.js, Express.js, MongoDB
+
+
+## Things to Note
+
+Only the database administrator reserves the ability to create subjects hence there is no endpoint exposed for this feature, thank you and enjoy the app.
+
+## Contact
+
+For any inquiries or support, please contact me at [My Email](tukpeemmanuel@gmail.com).
