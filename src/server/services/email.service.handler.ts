@@ -1,6 +1,7 @@
 import Mailgen from "mailgen";
 import nodemailer from "nodemailer";
 import env from "../../common/config/env";
+import { EmailServiceError } from "../../common/errors";
 
 export interface EmailOptions {
     from: string;
@@ -33,8 +34,7 @@ class EmailService {
                 html: this.mailGeneratorForOtp(otp)
             });
         } catch (error) {
-            console.error("Error sending email:", error);
-            throw error;
+            throw new EmailServiceError(error);
         }
     }
 

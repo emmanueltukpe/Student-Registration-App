@@ -141,3 +141,14 @@ export class ForbiddenError extends ControllerError {
         this.error_code = 307;
     }
 }
+
+export class EmailServiceError extends ControllerError {
+    constructor(cause?: string) {
+        const errorMessage = "Our email service has encountered an error";
+        super(errorMessage);
+
+        this.code = FORBIDDEN;
+        this.error_code = 307;
+        this.cause = cause
+    }
+}
