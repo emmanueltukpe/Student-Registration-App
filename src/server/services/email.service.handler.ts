@@ -49,15 +49,16 @@ class EmailService {
 
         const response = {
             body: {
-                name: "One Time Password",
-                intro: "Kindly use this otp",
+                name: "good student of Godgonlklin",
+                intro: "Your One-Time Password (OTP) for account verification is:",
                 table: {
                     data: [
                         {
                             otp: otp
                         }
                     ]
-                }
+                },
+                outro: "Please enter this OTP on the verification page to complete the process."
             }
         };
 
