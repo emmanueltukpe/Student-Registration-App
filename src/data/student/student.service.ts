@@ -195,27 +195,13 @@ export class StudentService {
         return student;
     }
 
-    public async getAllScienceStudents() {
-        const opts: PaginationQuery = {
-            query: {
-                class: "pure_science",
-                is_suspended: false
-            },
-            per_page: 10
-        };
-        const student = await this.studentrepository.getPaged(opts);
+    public async getAllScienceStudents(query: PaginationQuery) {
+        const student = await this.studentrepository.getPaged(query);
         return student;
     }
 
-    public async getAllSocialScienceStudents() {
-        const opts: PaginationQuery = {
-            query: {
-                class: "social_science",
-                is_suspended: false
-            },
-            per_page: 10
-        };
-        const student = await this.studentrepository.getPaged(opts);
+    public async getAllSocialScienceStudents(query: PaginationQuery) {
+        const student = await this.studentrepository.getPaged(query);
         return student;
     }
 
@@ -236,7 +222,7 @@ export class StudentService {
     }
 
     public async expelStudent(id: string) {
-        await this.getStudent(id)
+        await this.getStudent(id);
         const student = await this.studentrepository.destroy({ _id: id });
         return student;
     }

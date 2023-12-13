@@ -119,7 +119,7 @@ export class StudentController {
     public async getAllScienceStudents(req: Request, res: Response) {
         try {
             const subjectRepo = StudentService.initialize();
-            const data = await subjectRepo.getAllScienceStudents();
+            const data = await subjectRepo.getAllScienceStudents(req.query);
 
             BaseController.handleSuccess(req, res, data);
         } catch (err) {
@@ -163,7 +163,7 @@ export class StudentController {
     public async getAllSocialScienceStudents(req: Request, res: Response) {
         try {
             const subjectRepo = StudentService.initialize();
-            const data = await subjectRepo.getAllSocialScienceStudents();
+            const data = await subjectRepo.getAllSocialScienceStudents(req.query);
 
             BaseController.handleSuccess(req, res, data);
         } catch (err) {

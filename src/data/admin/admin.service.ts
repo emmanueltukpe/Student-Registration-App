@@ -87,12 +87,8 @@ export class AdminService {
         return admin;
     }
 
-    public async getAllAdmins() {
-        const opts: PaginationQuery = {
-            query: {},
-            per_page: 10
-        };
-        const admins = await this.adminrepository.getPaged(opts);
+    public async getAllAdmins(query: PaginationQuery) {
+        const admins = await this.adminrepository.getPaged(query);
         return admins;
     }
 

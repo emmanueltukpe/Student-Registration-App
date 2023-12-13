@@ -39,7 +39,7 @@ export class AdminController {
     public async getAllAdmins(req: Request, res: Response) {
         try {
             const adminRepo = AdminService.initialise();
-            const data = await adminRepo.getAllAdmins();
+            const data = await adminRepo.getAllAdmins(req.query);
 
             BaseController.handleSuccess(req, res, data);
         } catch (err) {
