@@ -3,3 +3,4 @@ export interface IModel {
     deleted_at: Date;
     updated_at: Date;
 }
+// okayyy
