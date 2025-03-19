@@ -17,6 +17,8 @@ class PasswordHash {
         hashedPassword: string
     ): Promise<boolean> {
         const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
+       console.log(isMatch);
+        
         return isMatch;
     }
 }
